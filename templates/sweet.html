@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import 'bootstrap5/form.html' as wtf %}
+
+{% block app_content %}
+<a href="../sweets">
+    <button class="btn btn-primary"> < Назад</button>
+</a>
+<br><br>
+
+<div class="row">
+    <div class="col col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                Информация о продукте
+            </div>
+            <div class="card-body">
+                {{ macros.info_table(['Название', 'Цена'], sweet) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Состав продукта
+            </div>
+            <div class="card-body">
+                {{ macros.table('sweets/'+sweet[0]|string, ['Название', 'Количество'], components)}}
+            </div>
+        </div>
+    </div>
+
+    {% if session.role >= 1 %}
+    <div class="col col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                Добавить компонент в состав
+            </div>
+            <div class="card-body">
+                {{ wtf.render_form(form, button_style='secondary') }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

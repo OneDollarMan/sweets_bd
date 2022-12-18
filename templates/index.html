@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Суммы заказов
+            </div>
+            <div class="card-body">
+                {{ macros.table('', ['Дата', 'Сумма всех заказов'], stat1, actions=False) }}
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Необходимо компонентов на сегодня
+            </div>
+            <div class="card-body">
+                {{ macros.table('', ['Компонент', 'Количество'], stat2, actions=False) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
