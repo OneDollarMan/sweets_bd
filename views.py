@@ -81,6 +81,8 @@ def clients():
         if session.get('role') == repo.ROLE_ADMINISTRATOR:
             if not repo.add_client_check(form.data):
                 flash('Клиент уже существует', 'warning')
+            else:
+                app.logger.warning(f'New client was added by {session.get("username")}')
             return redirect(url_for('clients'))
     return render_template('clients.html', title="Клиенты", clients=repo.get_clients(), form=form)
 
@@ -100,6 +102,8 @@ def suppliers():
         if session.get('role') == repo.ROLE_ADMINISTRATOR:
             if not repo.add_supplier_check(form.data):
                 flash('Поставщик уже существует', 'warning')
+            else:
+                app.logger.warning(f'New supplier was added by {session.get("username")}')
             return redirect(url_for('suppliers'))
 
     return render_template('suppliers.html', title="Поставщики", suppliers=repo.get_suppliers(), form=form)
@@ -157,6 +161,8 @@ def sweets():
     if form.validate_on_submit():
         if not repo.add_sweet_check(form.data):
             flash('Продукт уже существует', 'warning')
+        else:
+            app.logger.warning(f'New sweet was added by {session.get("username")}')
         return redirect(url_for('sweets'))
     return render_template('sweets.html', title='Продукция', sweets=repo.get_sweets(), form=form)
 
@@ -214,6 +220,9 @@ def add_order():
         data = form.data
         data['user_id'] = session.get('id')
         repo.add_order(data)
+        app.logger.warning(f'New order was added by {session.get("username")}')
+    else:
+        flash_errors(form)
     return redirect(url_for('orders'))
 
 

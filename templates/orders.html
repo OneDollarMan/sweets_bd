@@ -21,7 +21,7 @@
                 Добавить заказ
             </div>
             <div class="card-body">
-                {{ wtf.render_form(form, button_style='secondary') }}
+                {{ wtf.render_form(form, button_style='secondary', action='/orders/add') }}
             </div>
         </div>
         <br>
